@@ -1,16 +1,29 @@
-# application
+# MySimpleNotes App
 
-A new Flutter project.
+A Simple Notes Application developed for the KU BSc Program - Mobile Application Development Module Coursework 01 - A.
+
+KU ID: K2430660
+Name: U. D. Chamika Srimantha
+Module Code: C16330
+Module Name: Mobile Application Development
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Install Flutter SDK. (Flutter Version: 3.24.3)
+2. Install Android Studio.
+3. Add sqflite and path dependencies. (sqflite: ^2.4.0, path: ^2.0.11)
+4. Install JDK. (JDK: 17)
+5. Run the project.
 
-A few resources to get you started if this is your first Flutter project:
+If you are getting any error, make sure to double check these files:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- under android folder settings.gradle
+  `plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "8.3.2" apply false
+    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+  }`
+- under android/gradle folder gradle-wrapper.properties
+  `distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-all.zip`
+- under android/app folder build.gradle
+  `ndkVersion = "25.1.8937393"`

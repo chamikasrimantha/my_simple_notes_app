@@ -1,11 +1,11 @@
 # MySimpleNotes App
 
-A Simple Notes Application developed for the KU BSc Program - Mobile Application Development Module Coursework 01 - A.
+A Simple Notes Application developed for the KU BSc Program - Mobile Application Development Module Coursework 01 - A
 
-KU ID: K2430660
-Name: U. D. Chamika Srimantha
-Module Code: C16330
-Module Name: Mobile Application Development
+- KU ID: K2430660
+- Name: U. D. Chamika Srimantha
+- Module Code: C16330
+- Module Name: Mobile Application Development
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ Module Name: Mobile Application Development
 4. Install JDK. (JDK: 17)
 5. Run the project.
 
-If you are getting any error, make sure to double check these files:
+### If you are getting any error, make sure to double check these files:
 
 - under android folder settings.gradle
   `plugins {

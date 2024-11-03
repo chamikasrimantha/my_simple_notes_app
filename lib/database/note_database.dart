@@ -74,4 +74,29 @@ class NoteDatabase {
       whereArgs: [id],
     );
   }
+
+  List<Note> dummyNotes = [
+    Note(
+      id: 1,
+      title: "Grocery List",
+      content: "Eggs, Milk, Bread, Butter",
+      createdAt: DateTime.parse("2024-11-01T10:00:00Z"),
+      updatedAt: DateTime.parse("2024-11-01T10:00:00Z"),
+    ),
+    Note(
+      id: 2,
+      title: "Meeting Notes",
+      content: "Discuss project timeline and deliverables.",
+      createdAt: DateTime.parse("2024-11-02T12:30:00Z"),
+      updatedAt: DateTime.parse("2024-11-02T12:30:00Z"),
+    ),
+    Note(
+      id: 3,
+      title: "Birthday Party",
+      content: "Plan a surprise party for Sarah.",
+      createdAt: DateTime.parse("2024-11-03T15:45:00Z"),
+      updatedAt: DateTime.parse("2024-11-03T15:45:00Z"),
+    ),
+  ];
+
 }

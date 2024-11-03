@@ -11,7 +11,7 @@ A Simple Notes Application developed for the KU BSc Program - Mobile Application
 
 1. Install Flutter SDK. (Flutter Version: 3.24.3)
 2. Install Android Studio.
-3. Add sqflite and path dependencies. (sqflite: ^2.4.0, path: ^2.0.11)
+3. Add sqflite, path & intl dependencies. (sqflite: ^2.4.0, path: ^2.0.11, intl: ^0.18.1)
 4. Install JDK. (JDK: 17)
 5. Run the project.
 

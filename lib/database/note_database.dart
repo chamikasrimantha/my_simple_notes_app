@@ -20,12 +20,14 @@ class NoteDatabase {
 
   Future<Database> _initDB() async {
     String path = join(await getDatabasesPath(), 'notes.db');
+    // Delete the database if it already exists (for debugging purposes)
+    await deleteDatabase(path);
     return await openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)',
+          'CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, createdAt TEXT, updatedAt TEXT)',
         );
       },
     );
@@ -34,7 +36,6 @@ class NoteDatabase {
   Future<List<Note>> getNotes() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('notes');
-
     return List.generate(maps.length, (i) {
       return Note.fromMap(maps[i]);
     });
@@ -42,12 +43,18 @@ class NoteDatabase {
 
   Future<void> insert(Note note) async {
     final db = await database;
-    await db.insert(
-      'notes',
-      note.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    try {
+      await db.insert(
+        'notes',
+        note.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      print('Note added successfully');
+    } catch (e) {
+      print('Error adding note: $e');
+    }
   }
+
 
   Future<void> update(Note note) async {
     final db = await database;

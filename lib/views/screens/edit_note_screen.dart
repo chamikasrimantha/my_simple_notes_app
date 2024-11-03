@@ -35,10 +35,12 @@ class EditNoteScreen extends StatelessWidget {
                   id: note.id,
                   title: titleController.text,
                   content: contentController.text,
+                  createdAt: note.createdAt,
+                  updatedAt: DateTime.now(),
                 );
-                NoteController().updateNote(updatedNote); // Update note in the controller
-                onUpdate(); // Refresh the list in HomeScreen
-                Navigator.pop(context); // Go back to HomeScreen
+                NoteController().updateNote(updatedNote);
+                onUpdate();
+                Navigator.pop(context);
               },
               child: const Text('Update Note'),
             ),

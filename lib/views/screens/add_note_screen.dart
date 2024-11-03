@@ -31,16 +31,26 @@ class AddNoteScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                final now = DateTime.now();
                 final note = Note(
                   title: titleController.text,
                   content: contentController.text,
+                  createdAt: now,
+                  updatedAt: now,
                 );
-                NoteController().addNote(note);
-                onAdd();
-                Navigator.pop(context);
+
+                print('Adding note: ${note.toMap()}'); // Debugging line
+
+                NoteController().addNote(note).then((_) {
+                  print('Note added'); // Confirm it has been added
+                  onAdd();
+                  Navigator.pop(context);
+                }).catchError((error) {
+                  print('Error adding note: $error');
+                });
               },
               child: const Text('Save Note'),
-            ),
+            )
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Import the intl package
 import '../../models/note_model.dart';
 
 class NoteCard extends StatelessWidget {
@@ -15,6 +16,9 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Format the date using DateFormat
+    final formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(note.updatedAt);
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -31,7 +35,7 @@ class NoteCard extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          note.content,
+          'Last updated: $formattedDate',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(color: Colors.black87),

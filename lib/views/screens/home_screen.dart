@@ -1,6 +1,8 @@
+// views/screens/home_screen.dart
 import 'package:flutter/material.dart';
-import '../controllers/note_controller.dart';
-import '../models/note_model.dart';
+import '../widgets/search_bar.dart' as custom;
+import '../../controllers/note_controller.dart';
+import '../../models/note_model.dart';
 import 'add_note_screen.dart';
 import 'edit_note_screen.dart';
 
@@ -34,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final notes = await _noteController.getNotes();
     setState(() {
       _notes = notes;
-      _filteredNotes = notes; // Initially, show all notes
+      _filteredNotes = notes;
     });
   }
 
@@ -48,35 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> _confirmDelete(int id) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Note'),
-        content: const Text('Are you sure you want to delete this note?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('No'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Yes'),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed == true) {
-      _deleteNote(id);
-    }
-  }
-
-  void _deleteNote(int id) {
-    _noteController.deleteNote(id);
-    _loadNotes();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,19 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search notes...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ),
-          ),
+          custom.CustomSearchBar(controller: _searchController),
           Expanded(
             child: _filteredNotes.isEmpty
                 ? Center(
@@ -136,13 +97,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            EditNoteScreen(note: note, onUpdate: _loadNotes),
+                        builder: (context) => EditNoteScreen(
+                          note: note,
+                          onUpdate: _loadNotes,
+                        ),
                       ));
                     },
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () => _confirmDelete(note.id!),
+                      onPressed: () {
+                        // Show a confirmation dialog before deleting
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Delete Note'),
+                              content: const Text(
+                                  'Are you sure you want to delete this note?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    _deleteNote(note.id!);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Delete'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 );
@@ -164,5 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add, size: 30),
       ),
     );
+  }
+
+  void _deleteNote(int id) {
+    _noteController.deleteNote(id);
+    _loadNotes();
   }
 }

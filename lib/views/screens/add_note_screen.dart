@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../controllers/note_controller.dart';
-import '../models/note_model.dart';
+import '../../controllers/note_controller.dart';
+import '../../models/note_model.dart';
 
 class AddNoteScreen extends StatelessWidget {
   const AddNoteScreen({Key? key, required this.onAdd}) : super(key: key);
